@@ -5,7 +5,6 @@ podTemplate(namespace: k8s-ops,label: label,containers: [
   containerTemplate(name: 'podman', image: '192.168.48.139/base/podman:latest', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'kubectl', image: '192.168.48.139/base/kubectl:1.20.14', command: 'cat', ttyEnabled: true)
 ], serviceAccount: 'jenkins', volumes: [
-  hostPathVolume(mountPath: '/home/jenkins/.kube', hostPath: '/root/.kube'),
   persistentVolumeClaim(mountPath: '/root/.m2', claimName: 'maven-repo'),
 ]) {
   node(label) {
@@ -42,7 +41,9 @@ podTemplate(namespace: k8s-ops,label: label,containers: [
     stage('运行 Kubectl') {
       container('kubectl') {
         echo "查看 K8S 集群 Pod 列表"
+        withKubeConfig([credentialsId: "kubeconfig",serverUrl: "https://kubernetes.default.svc.cluster.local"]) {
         sh "kubectl get pods -n k8s-ops"
+        }
       }
     }
   }
