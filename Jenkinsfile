@@ -11,7 +11,7 @@ podTemplate(cloud: 'kubernetes',namespace: k8s-ops,label: label,containers: [
     def imageTag = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
     def harborURL = "192.168.48.139"    
     stage('下载代码') {
-      echo "下载代码阶段"
+      echo "下载代码"
       sh """
       git clone git@192.168.48.139:root/jpress.git
       """
