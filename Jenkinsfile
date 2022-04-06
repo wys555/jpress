@@ -14,7 +14,7 @@ podTemplate(cloud: 'kubernetes',namespace: k8s-ops,label: label,containers: [
     stage('下载代码') {
       container('git') {
         echo "下载代码"
-        git clone http://192.168.48.139:81/root/jpress.git
+       sh "git clone http://192.168.48.139:81/root/jpress.git"
       }
     }
     stage('代码编译打包') {
