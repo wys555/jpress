@@ -12,9 +12,10 @@ podTemplate(cloud: 'kubernetes',namespace: k8s-ops,label: label,containers: [
     def harborURL = "192.168.48.139"    
     stage('下载代码') {
       echo "下载代码"
-      sh """
-      git clone git@192.168.48.139:root/jpress.git
-      """
+      checkout scm
+#      sh """
+#      git clone git@192.168.48.139:root/jpress.git
+#      """
     }
     stage('代码编译打包') {
       container('maven') {
