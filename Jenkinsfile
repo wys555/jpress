@@ -1,6 +1,7 @@
 def label = "jenkins-slave-${UUID.randomUUID().toString()}"
 
 podTemplate(cloud: 'kubernetes',namespace: k8s-ops,label: label,containers: [
+  containerTemplate(name: 'git', image: '192.168.48.139/base/git:latest', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'maven', image: '192.168.48.139/base/maven:3.6.1-alpine', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'podman', image: '192.168.48.139/base/podman:latest', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'kubectl', image: '192.168.48.139/base/kubectl:1.20.14', command: 'cat', ttyEnabled: true)
@@ -11,8 +12,10 @@ podTemplate(cloud: 'kubernetes',namespace: k8s-ops,label: label,containers: [
     def imageTag = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
     def harborURL = "192.168.48.139"    
     stage('下载代码') {
-      echo "下载代码"
-      git url: "http://192.168.48.139:81/root/jpress.git"
+      container('git') {
+        echo "下载代码"
+        git clone http://192.168.48.139:81/root/jpress.git
+      }
     }
     stage('代码编译打包') {
       container('maven') {
