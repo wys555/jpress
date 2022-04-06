@@ -13,9 +13,6 @@ podTemplate(cloud: 'kubernetes',namespace: k8s-ops,label: label,containers: [
     stage('下载代码') {
       echo "下载代码"
       checkout scm
-#      sh """
-#      git clone git@192.168.48.139:root/jpress.git
-#      """
     }
     stage('代码编译打包') {
       container('maven') {
