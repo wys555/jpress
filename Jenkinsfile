@@ -1,4 +1,4 @@
-def label = "slave"
+def label = "jenkins-slave-${UUID.randomUUID().toString()}"
 
 podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
   containerTemplate(name: 'git', image: '192.168.48.139/base/git:latest', command: 'cat', ttyEnabled: true),
@@ -14,6 +14,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
     stage('下载代码') {
       container('git') {
         echo "1.git clone代码"
+        sh "git init"
         git credentialsId: '7a0695bf-9455-4b78-a4a6-9c7961a37295', url: 'http://192.168.48.139:81/root/jpress.git'
       }
     }
