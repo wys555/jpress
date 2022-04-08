@@ -1,4 +1,4 @@
-def label = "jenkins-slave-${UUID.randomUUID().toString()}"
+def label = "jenkins-slave"
 
 podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
   containerTemplate(name: 'git', image: '192.168.48.139/base/git:latest', command: 'cat', ttyEnabled: true),
