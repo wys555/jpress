@@ -9,12 +9,11 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
   persistentVolumeClaim(mountPath: '/root/.m2', claimName: 'maven-repo'),
 ]) {
   node(label) {
-    def imageTag = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+    def imageTag = ${GIT_REVISION}
     def harborURL = "192.168.48.139"    
     stage('下载代码') {
       container('git') {
         echo "1.git clone代码"
-        sh "git init"
         git credentialsId: '7a0695bf-9455-4b78-a4a6-9c7961a37295', url: 'http://192.168.48.139:81/root/jpress.git'
       }
     }
