@@ -9,7 +9,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
   persistentVolumeClaim(mountPath: '/root/.m2', claimName: 'maven-repo'),
 ]) {
   node(label) {
-    def imageTag = ${GIT_REVISION}
+    def imageTag = ${BUILD_NUMBER}
     def harborURL = "192.168.48.139"    
     stage('下载代码') {
       container('git') {
