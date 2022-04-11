@@ -6,7 +6,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
   containerTemplate(name: 'podman', image: '192.168.48.139/base/podman:latest', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'kubectl', image: '192.168.48.139/base/kubectl:1.20.14', command: 'cat', ttyEnabled: true)
 ], serviceAccount: 'jenkins', volumes: [
-  persistentVolumeClaim(mountPath: '~/.m2', claimName: 'maven-repo'),
+  persistentVolumeClaim(mountPath: '/root/.m2', claimName: 'maven-repo'),
 ]) {
   node(label) {
     def imageTag = "111"
@@ -30,7 +30,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         sh "ls -a /root"
         sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
-        ssh """
+        sh """
         mvn clean package
         """
       }
@@ -43,12 +43,10 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         sh "ls -a /root"
         sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
-        ssh """
-        podman build -t ${harborURL}/jpress/jpress:${imageTag} .
-        """
+        sh "podman build -t ${harborURL}/jpress/jpress:${imageTag} ."
         echo "4.推送 Docker 镜像阶段"
         withCredentials([usernamePassword(credentialsId: 'harbor', passwordVariable: 'HARBOR_SECRET_PSW', usernameVariable: 'HARBOR_SECRET_USR')]) {
-        ssh """
+        sh """
         podman login -u ${HARBOR_SECRET_USR} -p ${HARBOR_SECRET_PSW} ${harborURL} &&  podman push ${harborURL}/jpress/jpress:${imageTag}
         """
         }
