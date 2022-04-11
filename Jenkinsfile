@@ -42,7 +42,6 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         sh "ls -a ~/"
         sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
-        sh "podman --help"
         sh "cat /proc/sys/user/max_user_namespaces"
         sh "podman build -t 'jpress:${imageTag}' ."
         sh "podman -t 'jpress:${imageTag}' '${harborURL}/jpress/jpress:${imageTag}'"
