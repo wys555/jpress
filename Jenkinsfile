@@ -44,7 +44,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
         sh "podman --help"
-        sh "ls /proc/sys/user/max_user_namespaces"
+        sh "echo 10000 > /proc/sys/user/max_user_namespaces"
         sh "podman build -t '${harborURL}/jpress/jpress:${imageTag}' ."
         echo "4.推送 Docker 镜像阶段"
         withCredentials([usernamePassword(credentialsId: 'harbor', passwordVariable: 'HARBOR_SECRET_PSW', usernameVariable: 'HARBOR_SECRET_USR')]) {
