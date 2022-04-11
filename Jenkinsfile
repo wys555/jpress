@@ -40,7 +40,6 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         echo "3.构建 Docker 镜像阶段"
         sh "pwd"
         sh "ls -a ~/"
-        sh "ls -a /root"
         sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
         sh "podman --help"
