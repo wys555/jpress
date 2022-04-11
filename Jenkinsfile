@@ -6,7 +6,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
   containerTemplate(name: 'podman', image: '192.168.48.139/base/podman:latest', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'kubectl', image: '192.168.48.139/base/kubectl:1.20.14', command: 'cat', ttyEnabled: true)
 ], serviceAccount: 'jenkins', volumes: [
-  persistentVolumeClaim(mountPath: '/root/.m2', claimName: 'maven-repo'),
+  persistentVolumeClaim(mountPath: '~/.m2', claimName: 'maven-repo'),
 ]) {
   node(label) {
     def imageTag = "111"
@@ -15,6 +15,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
       container('git') {
         echo "1.git clone代码"
         sh "pwd"
+        sh "ls -a ~/"
         sh "ls -a /root"
         sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
@@ -25,6 +26,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
       container('maven') {
         echo "2.代码编译打包阶段"
         sh "pwd"
+        sh "ls -a ~/"
         sh "ls -a /root"
         sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
@@ -37,6 +39,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
       container('podman') {
         echo "3.构建 Docker 镜像阶段"
         sh "pwd"
+        sh "ls -a ~/"
         sh "ls -a /root"
         sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
@@ -55,6 +58,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
       container('kubectl') {
         echo "5.查看 K8S 集群 Pod 列表"
         sh "pwd"
+        sh "ls -a ~/"
         sh "ls -a /root"
         sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
