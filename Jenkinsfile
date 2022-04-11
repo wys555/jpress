@@ -43,6 +43,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
         sh "cat /proc/sys/user/max_user_namespaces"
+        sh "alias 'podman pull'='podman pull --tls-verify=false'"
         sh "podman build -t 'jpress:${imageTag}' ."
         sh "podman -t 'jpress:${imageTag}' '${harborURL}/jpress/jpress:${imageTag}'"
         echo "4.推送 Docker 镜像阶段"
