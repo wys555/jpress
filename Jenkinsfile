@@ -16,7 +16,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         echo "1.git clone代码"
         sh "pwd"
         sh "ls -a /root"
-        sh "ls -a /root/jenkins"
+        sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
         git credentialsId: '7a0695bf-9455-4b78-a4a6-9c7961a37295', url: 'http://192.168.48.139:81/root/jpress.git'
       }
@@ -26,7 +26,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         echo "2.代码编译打包阶段"
         sh "pwd"
         sh "ls -a /root"
-        sh "ls -a /root/jenkins"
+        sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
         ssh """
         mvn clean package
@@ -38,7 +38,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         echo "3.构建 Docker 镜像阶段"
         sh "pwd"
         sh "ls -a /root"
-        sh "ls -a /root/jenkins"
+        sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
         ssh """
         podman build -t ${harborURL}/jpress/jpress:${imageTag} .
@@ -56,7 +56,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         echo "5.查看 K8S 集群 Pod 列表"
         sh "pwd"
         sh "ls -a /root"
-        sh "ls -a /root/jenkins"
+        sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
         withKubeConfig([credentialsId: "kubeconfig",serverUrl: "https://kubernetes.default.svc.cluster.local"]) {
         sh "kubectl get pods -n k8s-ops"
