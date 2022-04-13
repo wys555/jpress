@@ -25,7 +25,6 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
       container('maven') {
         echo "2.代码编译打包阶段"
         sh "pwd"
-        sh "ls -a ~/"
         sh "ls -a /root"
         sh "ls -a /home/jenkins"
         sh "ls /home/jenkins/agent/workspace/jpress"
