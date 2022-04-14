@@ -43,6 +43,8 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         sh "alias 'podman pull'='podman pull --tls-verify=false'"
         sh "cat /etc/containers/registries.conf"
         sh "cat /etc/containers/storage.conf"
+        sh "ls /var/lib/containers"
+        sh "ls /usr/local/bin |grep fuse"
         sh "podman build -t 'jpress:${imageTag}' ."
         sh "podman -t 'jpress:${imageTag}' '${harborURL}/jpress/jpress:${imageTag}'"
         echo "4.推送 Docker 镜像阶段"
