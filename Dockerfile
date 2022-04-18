@@ -1,4 +1,4 @@
-FROM fuhai/jpress-base:v1.4 
+FROM 192.168.48.139/jpress/jpress-base:v1.4 
 LABEL maintainer="wws<wws@gmail.com>"
 
 WORKDIR /opt/jpress
