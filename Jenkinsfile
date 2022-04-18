@@ -39,7 +39,6 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         sh "ls -a ~/"
         sh "ls /home/jenkins/agent/workspace/jpress"
         sh "cat /proc/sys/user/max_user_namespaces"
-        sh "alias 'podman pull'='podman pull --tls-verify=false'"
         sh "cat /etc/containers/registries.conf"
         sh "cat /etc/containers/storage.conf"
         sh "ls /var/lib/containers"
