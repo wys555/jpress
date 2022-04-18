@@ -32,7 +32,6 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
     }
     stage('构建和推送 Docker 镜像') {
       container('podman') {
-        echo "3.构建 Docker 镜像阶段"
         sh "pwd"
         sh "ls -a ~/"
         sh "ls /home/jenkins/agent/workspace/jpress"
@@ -41,12 +40,14 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         sh "cat /etc/containers/storage.conf"
         sh "ls /var/lib/containers"
         sh "ls -l /dev/fuse"
-        sh "podman build -t 'jpress:${imageTag}' ."
-        sh "podman tag 'jpress:${imageTag}' '${harborURL}/jpress/jpress:${imageTag}'"
-        echo "4.推送 Docker 镜像阶段"
         withCredentials([usernamePassword(credentialsId: 'harbor', passwordVariable: 'HARBOR_PASSWD', usernameVariable: 'HARBOR_USERNAME')]) {
         sh """
-        podman login -u ${HARBOR_USERNAME} -p ${HARBOR_PASSWD} ${harborURL} &&  podman push ${harborURL}/jpress/jpress:${imageTag}
+        echo "3.构建 Docker 镜像阶段"
+        podman login -u ${HARBOR_USERNAME} -p ${HARBOR_PASSWD} ${harborURL}
+        podman build -t 'jpress:${imageTag}' .
+        podman tag 'jpress:${imageTag}' '${harborURL}/jpress/jpress:${imageTag}'
+        echo "4.推送 Docker 镜像阶段"
+        podman push ${harborURL}/jpress/jpress:${imageTag}
         """
         }
       }
