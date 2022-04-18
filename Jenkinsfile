@@ -45,7 +45,8 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         echo "3.构建 Docker 镜像阶段"
         podman login -u admin -p Harbor12345 ${harborURL}
         podman build -t 'jpress:${imageTag}' .
-        podman tag 'jpress:${imageTag}' '${harborURL}/jpress/jpress:${imageTag}'
+        podman images
+        podman tag 'localhost/jpress:${imageTag}' '${harborURL}/jpress/jpress:${imageTag}'
         echo "4.推送 Docker 镜像阶段"
         podman push ${harborURL}/jpress/jpress:${imageTag}
         """
