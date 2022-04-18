@@ -3,7 +3,7 @@ def label = "jenkins-slave-${UUID.randomUUID().toString()}"
 podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
   containerTemplate(name: 'git', image: '192.168.48.139/base/git:latest', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'maven', image: '192.168.48.139/base/maven:3.6.1-alpine', command: 'cat', ttyEnabled: true),
-  containerTemplate(name: 'podman', image: '192.168.48.139/base/podman:latest', command: 'cat', ttyEnabled: true,privileged: true),
+  containerTemplate(name: 'podman', image: '192.168.48.139/base/podman:3.4.2', command: 'cat', ttyEnabled: true,privileged: true),
   containerTemplate(name: 'kubectl', image: '192.168.48.139/base/kubectl:1.20.14', command: 'cat', ttyEnabled: true)
 ], serviceAccount: 'jenkins', volumes: [
   persistentVolumeClaim(mountPath: '/root/.m2', claimName: 'maven-repo'),
