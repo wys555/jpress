@@ -43,7 +43,7 @@ podTemplate(cloud: 'kubernetes',namespace: 'k8s-ops',label: label,containers: [
         withCredentials([usernamePassword(credentialsId: 'harbor', passwordVariable: 'HARBOR_PASSWD', usernameVariable: 'HARBOR_USERNAME')]) {
         sh """
         echo "3.构建 Docker 镜像阶段"
-        podman login -u ${HARBOR_USERNAME} -p ${HARBOR_PASSWD} ${harborURL}
+        podman login -u $HARBOR_USERNAME -p $HARBOR_PASSWD ${harborURL}
         podman build -t 'jpress:${imageTag}' .
         podman tag 'jpress:${imageTag}' '${harborURL}/jpress/jpress:${imageTag}'
         echo "4.推送 Docker 镜像阶段"
