@@ -27,5 +27,9 @@ stages:
       tag: test/jpress:${CICD_GIT_COMMIT}
       pushRemote: true
       registry: 172.26.126.67:280
+- name: deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
 timeout: 60
 notification: {}
