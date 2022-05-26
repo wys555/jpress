@@ -119,8 +119,8 @@ under the License.
      -->
     <server>
       <id>nexus</id>
-      <username>admin</username>
-      <password>Nexus@2022</password>
+      <username>maven.user1</username>
+      <password>maven.user1</password>
     </server>
 
     <!-- Another sample, using keys to authenticate.
