@@ -17,19 +17,7 @@ stages:
       image: 172.26.126.67:280/public/maven:3.6.1-jdk-8-alpine
       shellScript: |-
         ls
-        mkdir -p /root/.m2 && cp settings.xml /root/.m2/
-        mvn  clean  package -DskipTests
-- name: publist
-  steps:
-  - publishImageConfig:
-      dockerfilePath: ./Dockerfile
-      buildContext: .
-      tag: test/jpress:${CICD_GIT_COMMIT}
-      pushRemote: true
-      registry: 172.26.126.67:280
-- name: deploy
-  steps:
-  - applyYamlConfig:
-      path: ./deployment.yaml
+        # mkdir -p /root/.m2 && cp settings.xml /root/.m2/
+        # mvn  clean  package -DskipTests
 timeout: 60
 notification: {}
