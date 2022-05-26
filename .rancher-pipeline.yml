@@ -3,7 +3,9 @@ stages:
   steps:
   - runScriptConfig:
       image: 172.26.126.67:280/public/sonar-scanner-cli:4.7
-      shellScript: ls
+      shellScript: |-
+        ls
+        sleep 120
     env:
       SONAR_HOST_URL: http://sonarqube.public-sonarqube:7343
       SONAR_LOGIN: 7f271b994783f3f2a083e512fab520f94b309916
