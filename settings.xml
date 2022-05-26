@@ -154,7 +154,7 @@ under the License.
       <id>nexus</id>
       <mirrorOf>*</mirrorOf>
       <name>group-public</name>
-      <url>http://8.142.8.192:48773/repository/group-public/</url>
+      <url>http://172.26.27.114:8081/repository/group-public/</url>
     </mirror>
   </mirrors>
 
