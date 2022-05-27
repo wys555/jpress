@@ -1,5 +1,5 @@
 stages:
-- name: test
+- name: sonar-scanner
   steps:
   - runScriptConfig:
       image: 172.26.126.67:280/public/sonar-scanner-cli:4.7
