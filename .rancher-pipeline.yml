@@ -4,10 +4,8 @@ stages:
   - runScriptConfig:
       image: 172.26.126.67:280/public/sonar-scanner-cli:4.7
       shellScript: |-
-        ls /usr/src
         cp -r ./* /usr/src
-        ls /usr/src
-        sonar-scanner -Dsonar.host.usr="http://sonarqube.public-sonarqube:9000" -Dsonar.login="7f271b994783f3f2a083e512fab520f94b309916"
+        sonar-scanner -Dsonar.host.usr=$SONAR_HOST_URL -Dsonar.login=$SONAR_LOGIN
     env:
       SONAR_HOST_URL: http://sonarqube.public-sonarqube:9000
       SONAR_LOGIN: 7f271b994783f3f2a083e512fab520f94b309916
