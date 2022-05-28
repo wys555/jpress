@@ -5,8 +5,8 @@ stages:
       image: 172.26.126.67:280/public/sonar-scanner-cli:4.7
       shellScript: |-
         ls /usr/src
-        cp -r ./* /usr/src/
-        ls /usr/src
+        #cp -r ./* /usr/src/
+        #ls /usr/src
         echo $SONAR_HOST_URL
     env:
       SONAR_HOST_URL: http://sonarqube.public-sonarqube:7343
