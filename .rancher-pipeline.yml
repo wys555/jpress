@@ -7,6 +7,7 @@ stages:
         ls /usr/src
         cp -r ./* /usr/src/
         ls /usr/src
+        echo $SONAR_HOST_URL
     env:
       SONAR_HOST_URL: http://sonarqube.public-sonarqube:7343
       SONAR_LOGIN: 7f271b994783f3f2a083e512fab520f94b309916
