@@ -1,12 +1,8 @@
 stages:
-- name: sonar-scanner
+- name: sc
   steps:
   - runScriptConfig:
-      image: 172.26.126.67:280/public/maven:3.6.1-jdk-8-alpine
+      image: 172.26.126.67:280/public/sonar-scanner-cli:4.7
       shellScript: ls
-  when:
-    event:
-      include:
-      - push
 timeout: 60
 notification: {}
