@@ -2,7 +2,7 @@ stages:
 - name: sonar-scanner
   steps:
   - runScriptConfig:
-      image: 172.26.126.67:280/public/sonar-scanner-cli:4.7
+      image: 172.26.126.67:280/public/maven:3.6.1-jdk-8-alpine
       shellScript: ls
   when:
     event:
