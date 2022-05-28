@@ -7,7 +7,7 @@ stages:
         ls /usr/src
         cp -r ./* /usr/src
         ls /usr/src
-        echo $SONAR_LOGIN
+        cat /opt/sonar-scanner/conf/sonar-scanner.properties
         sonar-scanner
     env:
       SONAR_HOST_URL: http://sonarqube.public-sonarqube:9000
