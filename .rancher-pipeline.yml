@@ -9,7 +9,7 @@ stages:
         ls /usr/src
         sonar-scanner
     env:
-      SONAR_HOST_URL: http://sonarqube.public-sonarqube:7343
+      SONAR_HOST_URL: http://sonarqube.public-sonarqube:9000
       SONAR_LOGIN: 7f271b994783f3f2a083e512fab520f94b309916
 timeout: 60
 notification: {}
