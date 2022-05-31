@@ -5,6 +5,6 @@ stages:
       image: 172.26.126.67:280/public/maven:3.6.1-jdk-8-alpine
       shellScript: |-
         mkdir -p /root/.m2 && cp settings.xml /root/.m2/
-        mvn  clean  package -DskipTests sonar:sonar -Dsonar.url="http://8.142.159.78:7343" -Dsonar.login="7f271b994783f3f2a083e512fab520f94b309916" -Dsonar.projectKey="Myproject1" -Dsonar.projectName="Myproject1"
+        mvn  clean  package -DskipTests sonar:sonar -Dsonar.host.url="http://8.142.159.78:7343" -Dsonar.login="7f271b994783f3f2a083e512fab520f94b309916" -Dsonar.projectKey="Myproject1" -Dsonar.projectName="Myproject1"
 timeout: 60
 notification: {}
